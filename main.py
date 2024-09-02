@@ -2,9 +2,11 @@ import sys
 
 import pygame
 from pygame.locals import QUIT, RESIZABLE
-from world import grid
-from entities import player
 
+from entities import player
+from world import grid
+
+tile_set = pygame.image.load('./data/basictiles.png')
 
 def main() -> None:
     pygame.init()
@@ -26,10 +28,12 @@ def main() -> None:
                 sys.exit()
             current_player.update(event)
         screen.fill(color)
+        screen.blit(tile_set,(0,0))
         level_grid.draw()
         current_player.draw()
 
         pygame.display.update()
+
 
 
 if __name__ == "__main__":
