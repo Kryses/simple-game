@@ -1,12 +1,20 @@
 import pygame
 
 
+
 class GridCell:
     def __init__(self, index: int, x: int, y: int):
         self.index = index
         self.x = x
         self.y = y
         self.midpoint = ((x + 1) / 2, (y + 1) / 2)
+        self.entities: list['entities.Entity'] = []
+
+    def add_entity(self, current_entity: 'entities.Entity') -> None:
+        self.entities.append(current_entity)
+
+    def remove_entity(self, current_entity: 'entities.Entity') -> None:
+        self.entities.remove(current_entity)
 
     def __repr__(self) -> str:
         return f"Cell: x:{self.x} y:{self.y}"
@@ -30,6 +38,12 @@ class Grid:
             for y in range(0, self.grid_rows):
                 self.cells.append(GridCell(index, x, y))
                 index += 1
+
+    def get_cell(self, position: tuple[int, int]) -> GridCell:
+        for cell in self.cells:
+            if cell.x == position[0] and cell.y == position[1]:
+                return cell
+        raise ValueError(f"Unable to find cell at {position}")
 
     def draw(self) -> None:
         for row in range(self.grid_rows):

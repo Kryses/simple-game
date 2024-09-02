@@ -5,9 +5,9 @@ from pygame.locals import QUIT, RESIZABLE
 from world import grid
 from entities import player
 
+
 def main() -> None:
     pygame.init()
-
 
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode((800, 1000), RESIZABLE)
@@ -15,7 +15,7 @@ def main() -> None:
 
     game_running = True
 
-    level_grid = grid.Grid(screen, 100, 100, 50)
+    level_grid = grid.Grid(screen, 10, 10, 50)
     current_player = player.Player(screen, level_grid)
     while game_running:
         clock.tick(60)
@@ -31,5 +31,6 @@ def main() -> None:
 
         pygame.display.update()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

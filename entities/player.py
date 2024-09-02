@@ -1,16 +1,18 @@
 import pygame
-from entities import entity
 
-class Player(entity.Entity):
+from entities import Entity
+
+
+class Player(Entity):
     def draw(self) -> None:
         pygame.draw.rect(
             self.screen,
             self.color,
             (
-                self.x,
-                self.y,
-                self.size[0] - self.padding,
-                self.size[1] - self.padding,
+                self.x * self.level_grid.grid_spacing,
+                self.y * self.level_grid.grid_spacing,
+                self.size[0],
+                self.size[1],
             ),
             5,
         )
@@ -18,11 +20,16 @@ class Player(entity.Entity):
     def update(self, event: pygame.event.Event) -> None:
         self.update_count += 1
         if event.type in [pygame.KEYDOWN]:
+            new_x = self.x
+            new_y = self.y
+
             if event.key == pygame.K_d:
-                self.x += self.speed
+                new_x += 1
             if event.key == pygame.K_a:
-                self.x -= self.speed
+                new_x -= 1
             if event.key == pygame.K_w:
-                self.y -= self.speed
+                new_y -= 1
             if event.key == pygame.K_s:
-                self.y += self.speed
+                new_y += 1
+
+            self.move((new_x, new_y))
